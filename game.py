@@ -1,19 +1,3 @@
-"""
-John will be always the player
-Jack always the bot
-
-conditions du bot
-
-perdant :
-pencils % 5 == 4
-pencils == 1
-
-gagnant :
-pencils % 4 == 0 (prendra 3 crayons)
-pencils % 3 == 4 (prendra 2 crayons)
-pencils % 4 == 2 (prendra 1 crayon)
-
-"""
 import random
 
 def robot_turn(number_pens):
@@ -27,8 +11,6 @@ def robot_turn(number_pens):
         else:
             robot_choice = 2
             return robot_choice
-        robot_choice = 2
-        return robot_choice
     elif number_pens % 4 == 0 :
         robot_choice = 3
         return robot_choice
@@ -36,43 +18,40 @@ def robot_turn(number_pens):
         robot_choice = random.randint(1, 3)
         return robot_choice
 
-start_number = input("How many pencils would you like to use:")
 
+# Basically... Get an input
+def get_input():
+    return input("How many pencils would you like to use:")
+
+# Verify if the input is numeric or not
 def numeric_number(start_number):
     try:
         int(start_number)
         return True
     except ValueError:
+        print("The number of pencils should be numeric")
         return False
 
-def positif_number(start_number):
-    if start_number <= 0:
+# Verify if the number is positive or not
+def positive_number(start_number):
+    if int(start_number) <= 0:
+        print("The number of pencils should be positive")
         return False
     else:
         return True
 
+start_number = get_input()
+
 while True:
     if not numeric_number(start_number):
-        print("The number of pencils should be numeric")
-        start_number = input()
-        numeric_number(start_number)
+        start_number = get_input()
+    elif not positive_number(start_number):
+        start_number = get_input()
     else:
-        start_number = int(start_number)
-        if not positif_number(start_number):
-            print("The number of pencils should be positive")
-            start_number = input()
-            if not numeric_number(start_number):
-                print("The number of pencils should be numeric")
-                start_number = input()
-                numeric_number(start_number)
-            else:
-                start_number = int(start_number)
-        else:
-            start_number = int(start_number)
-            break
+        break
 
 
-number_pens = start_number
+number_pens = int(start_number)
 
 player_turn = input("Who will be the first (John, Jack):")
 
@@ -87,9 +66,9 @@ turn_state = player_turn
 
 print(f"{"|" * number_pens}")
 
-### Zone de fonctions
+### Functions area
 
-#fonction pour vérifier si le joueur ne prend que 1, 2 ou 3 crayons
+# Verify if the player takes only 1, 2 or 3 pencils
 def check_number_pens():
     pencil_change = input()
     while True:
@@ -99,18 +78,13 @@ def check_number_pens():
         else:
             return int(pencil_change)
 
-#Modifie le nombre de crayons en jeu
-def result_of_choice(pencil_change: int, number_pens: int):     #Cette fonction fonctionne
+# Modify the number of pencils in play
+def result_of_choice(pencil_change: int, number_pens: int):     #This function works
     number_pens -= int(pencil_change)
     return number_pens
 
-#Check de l'état du jeu en cours
+# Check the state of the game in progress
 def game_status(number_pens):
-    """
-    je dois chequer l'état du jeu en cours
-    True = le jeu continue
-    False = Le jeu s'arrête
-    """
     pencil_change = check_number_pens()
     if number_pens > 3:
         return int(pencil_change)
@@ -124,13 +98,13 @@ def game_status(number_pens):
                 return int(pencil_change)
 
 
-#Boucle qui tourne tant qu'il y a des crayons en jeu
+# Loop that runs as long as there are pencils in play
 while True:
     if player_turn == "John":
         print(f"{player_turn}\'s turn:")
 
         pencil_change = game_status(number_pens)
-        number_pens = result_of_choice(pencil_change, number_pens)      # Applique le résultat du tour de jeu
+        number_pens = result_of_choice(pencil_change, number_pens)      # Apply the result of the game turn
         print(f"{"|" * number_pens}")
 
         player_turn = "Jack"
@@ -146,7 +120,7 @@ while True:
         #pencil_change = check_number_pens()
         pencil_change = robot_turn(number_pens)
         print(pencil_change)
-        number_pens = result_of_choice(pencil_change, number_pens)        # Applique le résultat du tour de jeu
+        number_pens = result_of_choice(pencil_change, number_pens)        # Apply the result of the game turn
         print(f"{"|" * number_pens}")
 
         player_turn = "John"
