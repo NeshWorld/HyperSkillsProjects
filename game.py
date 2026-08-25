@@ -1,4 +1,7 @@
 import random
+from colorama import Fore, Back, Style, just_fix_windows_console
+
+just_fix_windows_console()
 
 def robot_turn(number_pens):
     if number_pens % 4 == 2:
@@ -29,13 +32,13 @@ def numeric_number(start_number):
         int(start_number)
         return True
     except ValueError:
-        print("The number of pencils should be numeric")
+        print(f"{Fore.RED}The number of pencils should be numeric{Style.RESET_ALL}")
         return False
 
 # Verify if the number is positive or not
 def positive_number(start_number):
     if int(start_number) <= 0:
-        print("The number of pencils should be positive")
+        print(f"{Fore.RED}The number of pencils should be positive{Style.RESET_ALL}")
         return False
     else:
         return True
@@ -57,7 +60,7 @@ player_turn = input("Who will be the first (John, Jack):")
 
 while True:
     if player_turn not in ["Jack", "John"]:
-        print("Choose between 'John' and 'Jack'")
+        print(f"{Fore.RED}Choose between 'John' and 'Jack'{Style.RESET_ALL}")
         player_turn = input("Who will be the first (John, Jack):")
     else:
         break
@@ -73,7 +76,7 @@ def check_number_pens():
     pencil_change = input()
     while True:
         if pencil_change not in ["1", "2", "3"]:
-            print("Possible values: '1', '2' or '3'")
+            print(f"{Fore.RED}Possible values: '1', '2' or '3'{Style.RESET_ALL}")
             pencil_change = input()
         else:
             return int(pencil_change)
