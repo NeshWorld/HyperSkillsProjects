@@ -1,4 +1,3 @@
-# Write your solution here
 import sys
 
 from huggingface_hub import InferenceClient
@@ -11,7 +10,7 @@ if __name__ == "__main__":
         sys.exit()
 
 
-# Create empty space for future sum of minutes
+# Function for calculating total study time
 def total_minutes_study(dictionary_study_plan):
     total_time = sum(dictionary_study_plan.values())
     return total_time
